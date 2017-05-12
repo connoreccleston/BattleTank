@@ -2,6 +2,7 @@
 
 #include "BattleTank.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 // Sets default values for this component's properties
@@ -35,7 +36,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	if (!Barrel) { return; }
+	if (!Barrel || !Turret) { return; }
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -73,18 +74,23 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 	FRotator CurrentBarrelRotation = Barrel->GetForwardVector().Rotation();
-	//FRotator CurrentTurretRotation = Turret->GetForwardVector().Rotation();
+	FRotator CurrentTurretRotation = Turret->GetForwardVector().Rotation();
 	
 	FRotator DesiredRotation = AimDirection.Rotation();
 
 	FRotator DeltaBarrel = DesiredRotation - CurrentBarrelRotation;
-	//FRotator DeltaTurret = DesiredRotation - CurrentTurretRotation;
+	FRotator DeltaTurret = DesiredRotation - CurrentTurretRotation;
 
 	Barrel->Elevate(DeltaBarrel.Pitch);
-	//Turret->Turn(DeltaTurret.Yaw);
+	Turret->Turn(DeltaTurret.Yaw);
 }
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	Turret = TurretToSet;
 }
