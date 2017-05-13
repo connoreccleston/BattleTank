@@ -18,8 +18,10 @@ void ATankAIController::Tick(float DeltaTime)
 
 	if (PlayerTank && ControlledTank)
 	{
-		// drive towards player
+		MoveToActor(PlayerTank, Radius);
+
 		ControlledTank->AimAt(PlayerTank->GetTargetLocation());
+
 		ControlledTank->Fire();
 	}
 }

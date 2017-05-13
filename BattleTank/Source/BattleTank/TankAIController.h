@@ -16,4 +16,7 @@ class BATTLETANK_API ATankAIController : public AAIController
 public:
 	void BeginPlay() override;
 	void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere)
+	float Radius = 2500;
 };
