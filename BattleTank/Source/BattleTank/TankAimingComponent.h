@@ -5,6 +5,12 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+UENUM()
+enum class EAimState : uint8
+{
+	RELOADING, AIMING, LOCKED
+};
+
 class UTankBarrel;
 class UTankTurret;
 
@@ -23,6 +29,9 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	UPROPERTY(BlueprintReadOnly, Category = State)
+	EAimState currentAimState = EAimState::RELOADING;
 
 public:	
 	// Called every frame
