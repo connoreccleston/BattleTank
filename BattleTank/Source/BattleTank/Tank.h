@@ -37,11 +37,11 @@ public:
 
 	void AimAt(FVector HitLocation);
 	
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
+	//UFUNCTION(BlueprintCallable, Category = Setup)
+	//void SetBarrelReference(UTankBarrel* BarrelToSet);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet);
+	//UFUNCTION(BlueprintCallable, Category = Setup)
+	//void SetTurretReference(UTankTurret* TurretToSet);
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 5000;
@@ -57,5 +57,5 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
-	UTankBarrel* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr; // will remove
 };

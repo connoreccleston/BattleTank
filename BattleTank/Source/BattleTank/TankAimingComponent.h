@@ -23,15 +23,18 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	void SetTurretReference(UTankTurret* TurretToSet);
+	//void SetBarrelReference(UTankBarrel* BarrelToSet);
+	//void SetTurretReference(UTankTurret* TurretToSet);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Init(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadOnly, Category = State)
-	EAimState currentAimState = EAimState::RELOADING;
+	EAimState currentAimState = EAimState::AIMING;
 
 public:	
 	// Called every frame
