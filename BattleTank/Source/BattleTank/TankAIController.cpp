@@ -22,7 +22,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 		GetPawn()->FindComponentByClass<UTankAimingComponent>()->AimAt(PlayerTank->GetTargetLocation());
 
-		//GetPawn()->Fire();
+		GetPawn()->FindComponentByClass<UTankAimingComponent>()->Fire();
 		//TODO readd this when new api is done, also have to change inputs blueprint
 	}
 }

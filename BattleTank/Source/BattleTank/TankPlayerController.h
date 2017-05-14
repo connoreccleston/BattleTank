@@ -22,7 +22,7 @@ public:
 	//ATank* GetControlledTank() const;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = Setup)
-	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef); // ignore squiggle
 
 	void AimTowardsCrosshair();
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;

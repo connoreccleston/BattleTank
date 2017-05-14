@@ -6,11 +6,11 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
-class UTankBarrel;
-class UTankTurret;
-class UTankAimingComponent;
+//class UTankBarrel;
+//class UTankTurret;
+//class UTankAimingComponent;
 //class UTankMovementComponent;
-class AProjectile;
+//class AProjectile;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -25,8 +25,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
+	//UPROPERTY(BlueprintReadOnly)
+	//UTankAimingComponent* TankAimingComponent = nullptr;
 
 	//UPROPERTY(BlueprintReadOnly)
 	//UTankMovementComponent* TankMovementComponent = nullptr;
@@ -43,19 +43,19 @@ public:
 	//UFUNCTION(BlueprintCallable, Category = Setup)
 	//void SetTurretReference(UTankTurret* TurretToSet);
 
-	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 5000;
+	//UPROPERTY(EditAnywhere, Category = Firing)
+	//float LaunchSpeed = 5000;
 
-	UPROPERTY(EditAnywhere, Category = Firing)
-	float ReloadTimeSeconds = 3;
+	//UPROPERTY(EditAnywhere, Category = Firing)
+	//float ReloadTimeSeconds = 3;
 
-	float LastFireTime = 0;
+	//float LastFireTime = 0;
 
-	UPROPERTY(EditAnywhere, Category = Setup)
-	TSubclassOf<AProjectile> ProjectileBlueprint;
+	//UPROPERTY(EditAnywhere, Category = Setup)
+	//TSubclassOf<AProjectile> ProjectileBlueprint;
 
-	UFUNCTION(BlueprintCallable, Category = Firing)
-	void Fire();
+	//UFUNCTION(BlueprintCallable, Category = Firing)
+	//void Fire();
 
-	UTankBarrel* Barrel = nullptr; // will remove
+	//UTankBarrel* Barrel = nullptr; // will remove
 };
