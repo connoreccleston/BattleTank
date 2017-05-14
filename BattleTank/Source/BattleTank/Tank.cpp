@@ -4,7 +4,6 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "Tank.h"
 
 
@@ -23,6 +22,8 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+	Barrel = FindComponentByClass<UTankBarrel>();
 }
 
 // Called to bind functionality to input

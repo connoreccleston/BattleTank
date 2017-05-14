@@ -9,7 +9,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
-class UTankMovementComponent;
+//class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -28,8 +28,8 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* TankMovementComponent = nullptr;
+	//UPROPERTY(BlueprintReadOnly)
+	//UTankMovementComponent* TankMovementComponent = nullptr;
 
 public:
 	// Called to bind functionality to input
