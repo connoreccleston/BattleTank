@@ -2,15 +2,8 @@
 
 #pragma once
 
-//#include "TankAimingComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
-
-//class UTankBarrel;
-//class UTankTurret;
-//class UTankAimingComponent;
-//class UTankMovementComponent;
-//class AProjectile;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -25,37 +18,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	//UPROPERTY(BlueprintReadOnly)
-	//UTankAimingComponent* TankAimingComponent = nullptr;
-
-	//UPROPERTY(BlueprintReadOnly)
-	//UTankMovementComponent* TankMovementComponent = nullptr;
-
 public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	//void AimAt(FVector HitLocation);
-	
-	//UFUNCTION(BlueprintCallable, Category = Setup)
-	//void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	//UFUNCTION(BlueprintCallable, Category = Setup)
-	//void SetTurretReference(UTankTurret* TurretToSet);
-
-	//UPROPERTY(EditAnywhere, Category = Firing)
-	//float LaunchSpeed = 5000;
-
-	//UPROPERTY(EditAnywhere, Category = Firing)
-	//float ReloadTimeSeconds = 3;
-
-	//float LastFireTime = 0;
-
-	//UPROPERTY(EditAnywhere, Category = Setup)
-	//TSubclassOf<AProjectile> ProjectileBlueprint;
-
-	//UFUNCTION(BlueprintCallable, Category = Firing)
-	//void Fire();
-
-	//UTankBarrel* Barrel = nullptr; // will remove
 };

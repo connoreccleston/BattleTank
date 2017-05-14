@@ -12,8 +12,6 @@ UTankAimingComponent::UTankAimingComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-
-	// ...
 }
 
 
@@ -27,9 +25,6 @@ void UTankAimingComponent::Init(UTankBarrel * BarrelToSet, UTankTurret * TurretT
 void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
-	
 }
 
 
@@ -37,8 +32,6 @@ void UTankAimingComponent::BeginPlay()
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
@@ -61,21 +54,14 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 		ESuggestProjVelocityTraceOption::DoNotTrace,
 		FCollisionResponseParams::DefaultResponseParam,
 		TArray<AActor*>(),
-		false//true
+		false
 	);
 	
 	if (foundSolution)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-
-		//UE_LOG(LogTemp, Warning, TEXT("Aim solution found"));
 	}
-	//else
-	//{
-	//	UE_LOG(LogTemp, Warning, TEXT("Aim solution NOT found"));
-	//}
-
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
@@ -91,16 +77,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	Barrel->Elevate(DeltaBarrel.Pitch);
 	Turret->Turn(DeltaTurret.Yaw);
 }
-
-//void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
-//{
-//	Barrel = BarrelToSet;
-//}
-//
-//void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
-//{
-//	Turret = TurretToSet;
-//}
 
 void UTankAimingComponent::Fire()
 {

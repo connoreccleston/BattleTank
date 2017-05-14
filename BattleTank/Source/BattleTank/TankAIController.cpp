@@ -14,7 +14,6 @@ void ATankAIController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
-	//auto ControlledTank = Cast<ATank>(GetPawn());
 
 	if (ensure(PlayerTank && GetPawn()))
 	{
@@ -23,6 +22,5 @@ void ATankAIController::Tick(float DeltaTime)
 		GetPawn()->FindComponentByClass<UTankAimingComponent>()->AimAt(PlayerTank->GetTargetLocation());
 
 		GetPawn()->FindComponentByClass<UTankAimingComponent>()->Fire();
-		//TODO readd this when new api is done, also have to change inputs blueprint
 	}
 }

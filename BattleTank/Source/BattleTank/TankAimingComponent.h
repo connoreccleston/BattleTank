@@ -24,9 +24,6 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	//void SetBarrelReference(UTankBarrel* BarrelToSet);
-	//void SetTurretReference(UTankTurret* TurretToSet);
-
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void Init(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
