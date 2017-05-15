@@ -11,8 +11,6 @@ void ATankPlayerController::BeginPlay()
 	auto AimComp = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimComp))
 		FoundAimingComponent(AimComp);
-	else
-		UE_LOG(LogTemp, Warning, TEXT("Player controller can't find aiming component at begin play."))
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -24,12 +22,14 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetPawn())) { return; }
+	if (!GetPawn()) { return; }
+	auto aimComp = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(aimComp)) { return; }
 
 	FVector hitLocation;
 	if (GetSightRayHitLocation(hitLocation))
 	{
-		GetPawn()->FindComponentByClass<UTankAimingComponent>()->AimAt(hitLocation);
+		aimComp->AimAt(hitLocation);
 	}
 }
 
@@ -47,10 +47,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	if (DeprojectScreenPositionToWorld(screenLocation.X, screenLocation.Y, camLocation, lookDirection))
 	{
 		// Get location of point being looked at if it is visible
-		if (GetLookVectorHitLocation(lookDirection, OutHitLocation))
-		{
-			return true;
-		}
+		return GetLookVectorHitLocation(lookDirection, OutHitLocation);
 	}
 
 	// Otherwise location was invalid (sky)

@@ -38,17 +38,14 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	if ((GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeSeconds)
 	{
 		currentAimState = EAimState::RELOADING;
-		UE_LOG(LogTemp, Warning, TEXT("%s is in RELOADING state"), *GetOwner()->GetName());
 	}
 	else if (IsBarrelMoving())
 	{
 		currentAimState = EAimState::AIMING;
-		UE_LOG(LogTemp, Warning, TEXT("%s is in AIMING state"), *GetOwner()->GetName());
 	}
 	else
 	{
 		currentAimState = EAimState::LOCKED;
-		UE_LOG(LogTemp, Warning, TEXT("%s is in LOCKED state"), *GetOwner()->GetName());
 	}
 }
 
