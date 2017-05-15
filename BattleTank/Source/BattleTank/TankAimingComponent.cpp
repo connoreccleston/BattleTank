@@ -11,7 +11,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = false;
+	PrimaryComponentTick.bCanEverTick = true;
 }
 
 
@@ -25,6 +25,8 @@ void UTankAimingComponent::Init(UTankBarrel * BarrelToSet, UTankTurret * TurretT
 void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	LastFireTime = GetWorld()->GetTimeSeconds();
 }
 
 
@@ -32,6 +34,29 @@ void UTankAimingComponent::BeginPlay()
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if ((GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeSeconds)
+	{
+		currentAimState = EAimState::RELOADING;
+		UE_LOG(LogTemp, Warning, TEXT("%s is in RELOADING state"), *GetOwner()->GetName());
+	}
+	else if (IsBarrelMoving())
+	{
+		currentAimState = EAimState::AIMING;
+		UE_LOG(LogTemp, Warning, TEXT("%s is in AIMING state"), *GetOwner()->GetName());
+	}
+	else
+	{
+		currentAimState = EAimState::LOCKED;
+		UE_LOG(LogTemp, Warning, TEXT("%s is in LOCKED state"), *GetOwner()->GetName());
+	}
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; }
+	return !(Barrel->GetForwardVector().Equals(localAimDirection, 0.01f));
+	//TODO This actually gives a better aim than the algorithm used in MoveBarrelTowards
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
@@ -59,8 +84,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	
 	if (foundSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		MoveBarrelTowards(AimDirection);
+		localAimDirection = OutLaunchVelocity.GetSafeNormal();
+		MoveBarrelTowards(localAimDirection);
 	}
 }
 
@@ -82,8 +107,7 @@ void UTankAimingComponent::Fire()
 {
 	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
 
-	bool isReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) >= ReloadTimeSeconds;
-	if (isReloaded)
+	if (currentAimState != EAimState::RELOADING)
 	{
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation("Projectile"), Barrel->GetSocketRotation("Projectile"));
 		Projectile->LaunchProjectile(LaunchSpeed);

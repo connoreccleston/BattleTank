@@ -38,6 +38,8 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	bool IsBarrelMoving();
+
 	void AimAt(FVector HitLocation);
 
 	void MoveBarrelTowards(FVector AimDirection);
@@ -59,4 +61,6 @@ public:
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
+
+	FVector localAimDirection;
 };

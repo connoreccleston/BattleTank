@@ -41,6 +41,4 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 	MoveForward(speed);
 	Rotate(angle);
-
-	//UE_LOG(LogTemp, Warning, TEXT("%f"), angle);
 }
