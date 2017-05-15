@@ -17,10 +17,13 @@ void ATankAIController::Tick(float DeltaTime)
 
 	if (ensure(PlayerTank && GetPawn()))
 	{
+		auto aimComp = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+
 		MoveToActor(PlayerTank, Radius);
 
-		GetPawn()->FindComponentByClass<UTankAimingComponent>()->AimAt(PlayerTank->GetTargetLocation());
+		aimComp->AimAt(PlayerTank->GetTargetLocation());
 
-		GetPawn()->FindComponentByClass<UTankAimingComponent>()->Fire();
+		if (aimComp->GetAimState() == EAimState::LOCKED)
+			aimComp->Fire();
 	}
 }

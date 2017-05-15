@@ -29,7 +29,6 @@ void UTankAimingComponent::BeginPlay()
 	LastFireTime = GetWorld()->GetTimeSeconds();
 }
 
-
 // Called every frame
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -86,6 +85,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	}
 }
 
+EAimState UTankAimingComponent::GetAimState() const
+{
+	return currentAimState;
+}
+
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 	FRotator CurrentBarrelRotation = Barrel->GetForwardVector().Rotation();
@@ -97,7 +101,11 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	FRotator DeltaTurret = DesiredRotation - CurrentTurretRotation;
 
 	Barrel->Elevate(DeltaBarrel.Pitch);
-	Turret->Turn(DeltaTurret.Yaw);
+
+	if (DeltaTurret.Yaw > 180.0f || DeltaTurret.Yaw < -180.0f)
+		Turret->Turn(DeltaTurret.Yaw * -1.0f);
+	else
+		Turret->Turn(DeltaTurret.Yaw);
 }
 
 void UTankAimingComponent::Fire()

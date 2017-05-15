@@ -17,6 +17,6 @@ public:
 	void BeginPlay() override;
 	void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
-	float Radius = 2500;
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	float Radius = 5000;
 };

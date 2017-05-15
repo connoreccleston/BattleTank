@@ -40,7 +40,8 @@ void UTankTrack::ApplyCorrectingForce()
 	auto tankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
 	auto correctionForce = tankRoot->GetMass() * correctionAcc / 2;
 
-	tankRoot->AddForce(correctionForce); //what if the force is applied at the center of the track?
+	//tankRoot->AddForce(correctionForce); //what if applied at the center of the track?
+	AddForce(correctionForce);
 }
 
 void UTankTrack::SetThrottle(float Throttle)
@@ -51,6 +52,7 @@ void UTankTrack::SetThrottle(float Throttle)
 void UTankTrack::DriveTrack()
 {
 	auto AppliedForce = GetForwardVector() * CurrentThrottle * MaxDrivingForce;
+	AppliedForce = FVector(AppliedForce.X, AppliedForce.Y, 0.0f); // negates Z component, prevents tanks driving up cliffs, but there's probably a better way to do this
 	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
 	TankRoot->AddForceAtLocation(AppliedForce, GetComponentLocation());
 }
