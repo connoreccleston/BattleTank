@@ -8,7 +8,7 @@
 UENUM()
 enum class EAimState : uint8
 {
-	RELOADING, AIMING, LOCKED
+	RELOADING, AIMING, LOCKED, OOA
 };
 
 class UTankBarrel;
@@ -34,6 +34,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = State)
 	EAimState currentAimState = EAimState::AIMING;
 
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -49,6 +50,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	uint8 GetAmmoCount();
+
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 5000;
 
@@ -60,9 +64,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Firing)
+	uint8 MaxAmmo = 15;
+
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
 	FVector localAimDirection;
+	uint8 AmmoCount = 0;
 };

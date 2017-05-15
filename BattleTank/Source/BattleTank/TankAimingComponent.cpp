@@ -14,7 +14,6 @@ UTankAimingComponent::UTankAimingComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-
 void UTankAimingComponent::Init(UTankBarrel * BarrelToSet, UTankTurret * TurretToSet)
 {
 	Barrel = BarrelToSet;
@@ -26,6 +25,7 @@ void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	AmmoCount = MaxAmmo;
 	LastFireTime = GetWorld()->GetTimeSeconds();
 }
 
@@ -34,17 +34,20 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if ((GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeSeconds)
-	{
-		currentAimState = EAimState::RELOADING;
-	}
-	else if (IsBarrelMoving())
-	{
-		currentAimState = EAimState::AIMING;
-	}
-	else
-	{
-		currentAimState = EAimState::LOCKED;
+	if (currentAimState != EAimState::OOA)
+	{	
+		if ((GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeSeconds)
+		{
+			currentAimState = EAimState::RELOADING;
+		}
+		else if (IsBarrelMoving())
+		{
+			currentAimState = EAimState::AIMING;
+		}
+		else
+		{
+			currentAimState = EAimState::LOCKED;
+		}
 	}
 }
 
@@ -112,10 +115,18 @@ void UTankAimingComponent::Fire()
 {
 	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
 
-	if (currentAimState != EAimState::RELOADING)
+	if (currentAimState != EAimState::RELOADING && currentAimState != EAimState::OOA)
 	{
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation("Projectile"), Barrel->GetSocketRotation("Projectile"));
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = GetWorld()->GetTimeSeconds();
+		AmmoCount--;
+		if (AmmoCount <= 0)
+			currentAimState = EAimState::OOA;
 	}
+}
+
+uint8 UTankAimingComponent::GetAmmoCount() 
+{
+	return AmmoCount;
 }
