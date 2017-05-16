@@ -4,6 +4,8 @@
 
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
+	
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDeath);
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -22,6 +24,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = Health)
 	uint8 CurrentHealth = 0;
+
+	FTankDeath OnTankDeath;
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
 

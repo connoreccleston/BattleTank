@@ -37,7 +37,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	FVector ForwardIntention = MoveVelocity.GetSafeNormal();
 
 	float speed = FVector::DotProduct(TankForward, ForwardIntention);
-	float angle = FVector::CrossProduct(ForwardIntention, TankForward).Z;
+	float angle = FVector::CrossProduct(TankForward, ForwardIntention).Z;
 
 	MoveForward(speed);
 	Rotate(angle);

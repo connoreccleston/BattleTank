@@ -19,4 +19,10 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float Radius = 10000;
+
+private:
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnTankDeath();
 };

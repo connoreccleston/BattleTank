@@ -65,7 +65,7 @@ public:
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Firing)
-	uint8 MaxAmmo = 15;
+	uint8 MaxAmmo = 50;
 
 	uint8 AmmoCount = 0;
 

@@ -33,4 +33,10 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	float LinetraceRange = 1000000.0f; //cm = 10 Km
+
+private:
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnTankDeath();
 };
