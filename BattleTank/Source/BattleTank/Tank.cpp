@@ -19,6 +19,11 @@ void ATank::BeginPlay()
 	CurrentHealth = MaxHealth;
 }
 
+float ATank::GetHealthPercent() const
+{
+	return (float)CurrentHealth / (float)MaxHealth;
+}
+
 float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser)
 {
 	uint8 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
@@ -30,7 +35,7 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEv
 
 	UE_LOG(LogTemp, Warning, TEXT("current health %d damage amount %d"), CurrentHealth, DamagePoints);
 
-	return DamagePoints * 1.0f;
+	return (float)DamagePoints;
 }
 
 // Called to bind functionality to input
