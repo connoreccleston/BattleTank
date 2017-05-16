@@ -5,6 +5,8 @@
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
 
+class UStaticMeshComponent;
+class UParticleSystemComponent;
 class UProjectileMovementComponent;
 
 UCLASS()
@@ -20,15 +22,18 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UProjectileMovementComponent* ProjectileMovementComponent = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = Components)
+	UStaticMeshComponent* CollisionMesh = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = Components)
+	UParticleSystemComponent* LaunchBlast = nullptr;
+
+	UProjectileMovementComponent* ProjectileMovement = nullptr;
 
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void LaunchProjectile(float Speed);
-
-	
-	
+	void LaunchProjectile(float Speed);	
 };
