@@ -41,6 +41,16 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	//ImpactBlast->Activate();
 	RadialForce->FireImpulse();
 
+	UGameplayStatics::ApplyRadialDamage
+	(
+		GetWorld(),
+		ProjectileDamage,
+		GetActorLocation(),
+		RadialForce->Radius,
+		UDamageType::StaticClass(),
+		TArray<AActor*>() //damage all actors in radius		
+	);
+
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactBlast->Template, GetActorLocation());
 	Destroy();
 

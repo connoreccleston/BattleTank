@@ -67,10 +67,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Firing)
 	uint8 MaxAmmo = 15;
 
+	uint8 AmmoCount = 0;
+
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
 	FVector localAimDirection;
-	uint8 AmmoCount = 0;
+
 };

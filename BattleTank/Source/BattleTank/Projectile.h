@@ -25,6 +25,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, Category = Setup)
+	float ProjectileDamage = 25.0f;
+
 	UPROPERTY(VisibleAnywhere, Category = Components)
 	UStaticMeshComponent* CollisionMesh = nullptr;
 
