@@ -5,9 +5,9 @@
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
 
-class UStaticMeshComponent;
-class UParticleSystemComponent;
-class UProjectileMovementComponent;
+//class UStaticMeshComponent;
+//class UParticleSystemComponent;
+//class UProjectileMovementComponent;
 
 UCLASS()
 class BATTLETANK_API AProjectile : public AActor
@@ -33,6 +33,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = Components)
 	UParticleSystemComponent* ImpactBlast = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = Components)
+	URadialForceComponent* RadialForce = nullptr;
 
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
 

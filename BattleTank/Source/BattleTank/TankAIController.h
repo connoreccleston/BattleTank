@@ -18,5 +18,5 @@ public:
 	void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	float Radius = 5000;
+	float Radius = 10000;
 };

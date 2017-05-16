@@ -21,7 +21,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 		MoveToActor(PlayerTank, Radius);
 
-		aimComp->AimAt(PlayerTank->GetTargetLocation());
+		aimComp->AimAt(PlayerTank->GetActorLocation() + FVector(0, 0, 150));
 
 		if (aimComp->GetAimState() == EAimState::LOCKED)
 			aimComp->Fire();

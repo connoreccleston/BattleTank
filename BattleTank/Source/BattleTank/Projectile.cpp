@@ -23,6 +23,9 @@ AProjectile::AProjectile()
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement"));
 	ProjectileMovement->bAutoActivate = false;
+
+	RadialForce = CreateDefaultSubobject<URadialForceComponent>(FName("Radial Force"));
+	RadialForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 // Called when the game starts or when spawned
@@ -34,8 +37,18 @@ void AProjectile::BeginPlay()
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	LaunchBlast->Deactivate();
-	ImpactBlast->Activate();
+	//LaunchBlast->Deactivate();
+	//ImpactBlast->Activate();
+	RadialForce->FireImpulse();
+
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactBlast->Template, GetActorLocation());
+	Destroy();
+
+	//SetRootComponent(ImpactBlast);
+	//CollisionMesh->DestroyComponent();
+
+	//FTimerHandle timerHandle;
+	//GetWorld()->GetTimerManager().SetTimer(timerHandle, this, somemethod, 0.0f);
 }
 
 void AProjectile::LaunchProjectile(float Speed)
