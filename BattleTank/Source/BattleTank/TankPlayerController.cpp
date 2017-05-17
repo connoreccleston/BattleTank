@@ -65,7 +65,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 		outHit,
 		PlayerCameraManager->GetCameraLocation(), // start
 		PlayerCameraManager->GetCameraLocation() + LookDirection * LinetraceRange, // end
-		ECollisionChannel::ECC_Visibility
+		ECollisionChannel::ECC_Camera
 	);
 
 	if (linetraceSuccess)
@@ -94,4 +94,5 @@ void ATankPlayerController::SetPawn(APawn* InPawn)
 
 void ATankPlayerController::OnTankDeath()
 {
+	StartSpectatingOnly();
 }
